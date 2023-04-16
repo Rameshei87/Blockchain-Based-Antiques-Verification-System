@@ -1,0 +1,37 @@
+#!/bin/sh
+# File        : Start Session Layer
+# Description : Used to start the service.
+# Author      :
+# Customized  :
+# Date        :
+
+if [ $# -ne 3 ]
+then
+        echo "Usage ./startsession <SessionLayer home path> <oracle home path> <ld library path>"
+fi
+
+SESSION_LAYER_HOME=$1
+ORACLE_HOME=$2
+LD_LIBRARY_PATH=$3
+
+export SESSION_LAYER_HOME
+export ORACLE_HOME
+export LD_LIBRARY_PATH
+
+spsrunning=`ps -aef | grep SPSScheduler | grep -v grep | wc -l | awk ' {print $1} '`
+if [ ${spsrunning} -eq 0 ]
+then
+        echo "[`date`] Session Layer cannot be started since SPS is not running"
+        exit
+fi
+
+processCount=`ps -aef | grep "Session.exe" | grep -v grep | wc -l | awk ' {print $1} '`
+
+if [ ${processCount} -ge 1 ]
+then
+        echo "[`date`] Instance of Session Layer is already running."
+        exit
+fi
+
+echo "[`date`] Starting Session Layer Instance"
+${SESSION_LAYER_HOME}/Bin/Session.exe stop & 
