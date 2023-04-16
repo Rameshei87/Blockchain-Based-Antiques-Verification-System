@@ -1,0 +1,7 @@
+# Hello
+# How are you
+# How is Life
+
+#The below crontab entry is for the Session Layer of Tecnotree Service Provisioning System - entry added on Fri Oct  8 18:20:49 IST 2010
+*/2 * * * * /home/sps/06-Provisioning/branches/SPS_5.1.0.0/trunk/SharedObjects/SessionLayer/Bin/startsession stop ServiceLayerStart anoop/anoop@spsoracle >> /home/sps/06-Provisioning/branches/SPS_5.1.0.0/trunk/SharedObjects/SessionLayer/Logs/session_cron.log 2>&1
+
